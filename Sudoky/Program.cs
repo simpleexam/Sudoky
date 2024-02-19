@@ -1,4 +1,6 @@
-﻿namespace Sudoky
+﻿using Microsoft.VisualBasic;
+
+namespace Sudoky
 {
     internal class Program
     {
@@ -16,16 +18,18 @@
                 {0,3,0,0,8,0,0,0,9 },
                 {0,0,0,6,2,0,1,0,0 }
             };
+           
 
             while (true)
             {
+                Console.Clear();
+                bool[] isCorrect = new bool[3]; //хранение флагов присутствия элемента в строке [0] в столбце [1] в блоке [2]
                 //вывод шапки
                 Console.SetCursorPosition(2, 0);
                 for (int i = 0; i< 9; i++)
                 {
                     Console.Write($" {i}");
                 }
-
                 Console.SetCursorPosition(2, 1);
                 for (int i = 0; i< 9; i++)
                 {
@@ -33,7 +37,6 @@
                 }
                 Console.WriteLine();
                 //окончание вывода шапки
-
 
                 for (int i = 0; i < 9; i++)
                 {
@@ -66,7 +69,44 @@
                     }
                     Console.WriteLine();
                 }
-                Console.Read();
+                //Console.Read();
+                Console.WriteLine("введите позицию для вставки значения");
+                int x = int.Parse(Console.ReadLine()); // i
+                int y = int.Parse(Console.ReadLine()); // j
+                Console.WriteLine("введите значение для вставки");
+                int userValue = int.Parse(Console.ReadLine());
+
+                //проверка корректности значений
+
+                for(int i = 0; i < 9; i++) //проверка по столбцу
+                {
+                    if (SudokyMap[i,y] == userValue)
+                    {
+                        isCorrect[1] = true;
+                    }
+                }
+
+                for (int j = 0; j < 9; j++) //проверка по строке
+                {
+                    if (SudokyMap[x, j] == userValue)
+                    {
+                        isCorrect[0] = true;
+                    }
+                }
+
+                //проверка по блоку
+
+                if (isCorrect[0] == true)
+                    Console.WriteLine("вставка невозможна. есть дубликаты в строке");
+                if (isCorrect[1] == true)
+                    Console.WriteLine("вставка невозможна. есть дубликаты в столбце");
+                else
+                {
+                    SudokyMap[x, y] = userValue;
+                    Console.WriteLine("добавлено");
+                }
+
+                Console.ReadKey();
             }
         }
     }
