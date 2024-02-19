@@ -93,21 +93,171 @@ namespace Sudoky
                         isCorrect[0] = true;
                     }
                 }
-
                 //проверка по блоку
+
+                //------------------
 
                 if (isCorrect[0] == true)
                     Console.WriteLine("вставка невозможна. есть дубликаты в строке");
-                if (isCorrect[1] == true)
+                else if (isCorrect[1] == true)
                     Console.WriteLine("вставка невозможна. есть дубликаты в столбце");
+                else if (GetBlock(x, y, ref SudokyMap, userValue))
+                    Console.WriteLine("вставка невозможна. есть дубликаты в блоке");
                 else
                 {
                     SudokyMap[x, y] = userValue;
                     Console.WriteLine("добавлено");
+
                 }
 
                 Console.ReadKey();
             }
+        }
+
+        private static bool GetBlock(int x, int y, ref int[,] array, int userValue)
+        {
+            if (x < 3 && y < 3)                              //1;
+            {
+                for (int i = 0; i< 3; i++)
+                { 
+                    for(int j = 0; j< 3; j++)
+                    {
+                        if (array[i,j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+
+            }
+            else if (x < 3 && (y >2 && y <6))                //2;
+            {
+                for (int i = 0; i< 3; i++)
+                {
+                    for (int j = 2; j< 6; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+            else if (x < 3 && y > 5)                         //3;
+            {
+                for (int i = 0; i< 3; i++)
+                {
+                    for (int j = 5; j< 9; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            else if ((x > 2 && x < 6) && y < 3)              //4;
+            {
+                for (int i = 3; i < 6; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+            else if ((x > 2 && x < 6) && (y < 6 && y > 2))   //5;
+            {
+                for (int i = 3; i < 6; i++)
+                {
+                    for (int j = 3; j< 6; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+            else if ((x > 2 && x < 6) && y > 5)              //6;
+            {
+                for (int i = 3; i < 6; i++)
+                {
+                    for (int j = 6; j< 9; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            else if (x > 5 && y < 3)                         //7;
+            {
+                for (int i = 6; i < 9; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+            else if (x > 5 && (y < 6 && y > 2))              //8;
+            {
+                for (int i = 6; i < 9; i++)
+                {
+                    for (int j = 3; j < 6; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+            else if (x > 5 && y > 5)                         //7;
+            {
+                for (int i = 6; i < 9; i++)
+                {
+                    for (int j = 6; j < 9; j++)
+                    {
+                        if (array[i, j] == userValue)
+                        {
+                            return true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+
+
+            else return false;
+
         }
     }
 }
